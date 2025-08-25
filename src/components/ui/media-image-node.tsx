@@ -8,12 +8,7 @@ import type { PlateElementProps } from 'platejs/react';
 import { useDraggable } from '@platejs/dnd';
 import { Image, ImagePlugin, useMediaState } from '@platejs/media/react';
 import { ResizableProvider, useResizableValue } from '@platejs/resizable';
-import {
-  PlateElement,
-  useEditorSelector,
-  useSelected,
-  withHOC,
-} from 'platejs/react';
+import { PlateElement, withHOC } from 'platejs/react';
 
 import { cn } from '@/lib/utils';
 
@@ -24,8 +19,6 @@ import {
   Resizable,
   ResizeHandle,
 } from './resize-handle';
-import { Popover, PopoverContent, PopoverTrigger } from './popover';
-import { RadicalIcon } from 'lucide-react';
 
 export const ImageElement = withHOC(
   ResizableProvider,

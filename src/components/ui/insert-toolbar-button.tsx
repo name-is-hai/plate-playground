@@ -21,7 +21,6 @@ import {
   PilcrowIcon,
   PlusIcon,
   QuoteIcon,
-  RadicalIcon,
   SquareIcon,
   TableIcon,
   TableOfContentsIcon,

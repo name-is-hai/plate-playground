@@ -21,7 +21,6 @@ import {
 } from '@/components/ui/context-menu';
 import { useIsTouchDevice } from '@/hooks/use-is-touch-device';
 
-
 export function BlockContextMenu({ children }: { children: React.ReactNode }) {
   const { api, editor } = useEditorPlugin(BlockMenuPlugin);
   const isTouch = useIsTouchDevice();

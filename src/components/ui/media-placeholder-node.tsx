@@ -209,7 +209,7 @@ export const PlaceholderElement = withHOC(
               {activeTab === 'upload' ? (
                 <div className="flex flex-col items-center gap-2">
                   <Button
-                    size={'sm'}
+                    size="sm"
                     className="w-full"
                     onClick={() => {
                       setOpen(false);
@@ -233,7 +233,7 @@ export const PlaceholderElement = withHOC(
                   />
                   <Button
                     className="w-full"
-                    size={'sm'}
+                    size="sm"
                     disabled={!embedUrl.trim()}
                     onClick={() => {
                       if (!embedUrl.trim()) return;

@@ -36,53 +36,56 @@ import { ToggleKit } from '@/components/editor/plugins/toggle-kit';
 import { ButtonPlugin } from './plugins/button-kit';
 
 export const EditorKit = () => [
-    // Elements
-    ...BasicBlocksKit,
-    ...CodeBlockKit,
-    ...TableKit,
-    ...ToggleKit,
-    ...TocKit,
-    ...MediaKit,
-    ...CalloutKit,
-    ...ColumnKit,
-    ...DateKit,
-    ...LinkKit,
-    ...MentionKit,
-    ButtonPlugin,
+  // Elements
+  ...BasicBlocksKit,
+  ...CodeBlockKit,
+  ...TableKit,
+  ...ToggleKit,
+  ...TocKit,
+  ...MediaKit,
+  ...CalloutKit,
+  ...ColumnKit,
+  ...DateKit,
+  ...LinkKit,
+  ...MentionKit,
+  ButtonPlugin,
 
-    // Marks
-    ...BasicMarksKit,
-    ...FontKit,
+  // Marks
+  ...BasicMarksKit,
+  ...FontKit,
 
-    // Block Style
-    ...ListKit,
-    ...AlignKit,
-    ...LineHeightKit,
+  // Block Style
+  ...ListKit,
+  ...AlignKit,
+  ...LineHeightKit,
 
-    // Collaboration
-    ...DiscussionKit,
-    ...CommentKit,
-    ...SuggestionKit,
+  // Collaboration
+  ...DiscussionKit,
+  ...CommentKit,
+  ...SuggestionKit,
 
-    // Editing
-    ...SlashKit,
-    ...AutoformatKit,
-    ...BlockMenuKit,
-    ...DndKit,
-    ...EmojiKit,
-    ...ExitBreakKit,
-    TrailingBlockPlugin,
+  // Editing
+  ...SlashKit,
+  ...AutoformatKit,
+  ...BlockMenuKit,
+  ...DndKit,
+  ...EmojiKit,
+  ...ExitBreakKit,
+  TrailingBlockPlugin,
 
-    // Parsers
-    ...DocxKit,
-    ...MarkdownKit,
+  // Parsers
+  ...DocxKit,
+  ...MarkdownKit,
 
-    // UI
-    ...BlockPlaceholderKit,
-    ...FixedToolbarKit,
-    ...FloatingToolbarKit,
+  // UI
+  ...BlockPlaceholderKit,
+  ...FixedToolbarKit,
+  ...FloatingToolbarKit,
 ];
 
-export type MyEditor = TPlateEditor<Value, ReturnType<typeof EditorKit>[number]>;
+export type MyEditor = TPlateEditor<
+  Value,
+  ReturnType<typeof EditorKit>[number]
+>;
 
 export const useEditor = () => useEditorRef<MyEditor>();

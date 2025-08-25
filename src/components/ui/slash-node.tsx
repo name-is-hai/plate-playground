@@ -5,43 +5,43 @@ import * as React from 'react';
 import type { PlateEditor, PlateElementProps } from 'platejs/react';
 
 import {
-    AudioLinesIcon,
-    BookUser,
-    CalendarIcon,
-    ChevronRightIcon,
-    Code2,
-    Columns3Icon,
-    FileUp,
-    Heading1Icon,
-    Heading2Icon,
-    Heading3Icon,
-    ImageUpIcon,
-    LightbulbIcon,
-    ListIcon,
-    ListOrdered,
-    PilcrowIcon,
-    Quote,
-    Square,
-    Table,
-    TableOfContentsIcon,
-    VideoIcon
+  AudioLinesIcon,
+  BookUser,
+  CalendarIcon,
+  ChevronRightIcon,
+  Code2,
+  Columns3Icon,
+  FileUp,
+  Heading1Icon,
+  Heading2Icon,
+  Heading3Icon,
+  ImageUpIcon,
+  LightbulbIcon,
+  ListIcon,
+  ListOrdered,
+  PilcrowIcon,
+  Quote,
+  Square,
+  Table,
+  TableOfContentsIcon,
+  VideoIcon,
 } from 'lucide-react';
 import { type TComboboxInputElement, KEYS } from 'platejs';
 import { PlateElement } from 'platejs/react';
 
 import {
-    insertBlock,
-    insertInlineElement,
+  insertBlock,
+  insertInlineElement,
 } from '@/components/editor/transforms';
 
 import {
-    InlineCombobox,
-    InlineComboboxContent,
-    InlineComboboxEmpty,
-    InlineComboboxGroup,
-    InlineComboboxGroupLabel,
-    InlineComboboxInput,
-    InlineComboboxItem,
+  InlineCombobox,
+  InlineComboboxContent,
+  InlineComboboxEmpty,
+  InlineComboboxGroup,
+  InlineComboboxGroupLabel,
+  InlineComboboxInput,
+  InlineComboboxItem,
 } from './inline-combobox';
 
 type Group = {

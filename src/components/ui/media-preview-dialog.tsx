@@ -1,9 +1,9 @@
 'use client';
 
 import {
-    PreviewImage,
-    useImagePreview,
-    useImagePreviewValue
+  PreviewImage,
+  useImagePreview,
+  useImagePreviewValue,
 } from '@platejs/media/react';
 import { cva } from 'class-variance-authority';
 import { Download, Minimize2Icon, Minus, Plus } from 'lucide-react';
