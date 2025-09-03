@@ -35,57 +35,63 @@ import { TocKit } from '@/components/editor/plugins/toc-kit';
 import { ToggleKit } from '@/components/editor/plugins/toggle-kit';
 import { ButtonPlugin } from './plugins/button-kit';
 
-export const EditorKit = () => [
-  // Elements
-  ...BasicBlocksKit,
-  ...CodeBlockKit,
-  ...TableKit,
-  ...ToggleKit,
-  ...TocKit,
-  ...MediaKit,
-  ...CalloutKit,
-  ...ColumnKit,
-  ...DateKit,
-  ...LinkKit,
-  ...MentionKit,
-  ButtonPlugin,
+const basePlugins = (isStudentSite?: boolean) => [
+    // Elements
+    ...BasicBlocksKit,
+    ...CodeBlockKit,
+    ...TableKit,
+    ...ToggleKit,
+    ...TocKit,
+    ...MediaKit,
+    ...CalloutKit,
+    ...ColumnKit,
+    ...DateKit,
+    ...LinkKit,
+    ...MentionKit,
 
-  // Marks
-  ...BasicMarksKit,
-  ...FontKit,
+    // Marks
+    ...BasicMarksKit,
+    ...FontKit,
 
-  // Block Style
-  ...ListKit,
-  ...AlignKit,
-  ...LineHeightKit,
+    // Block Style
+    ...ListKit,
+    ...AlignKit,
+    ...LineHeightKit,
 
-  // Collaboration
-  ...DiscussionKit,
-  ...CommentKit,
-  ...SuggestionKit,
+    // Collaboration
+    ...DiscussionKit,
+    ...CommentKit,
+    ...SuggestionKit,
 
-  // Editing
-  ...SlashKit,
-  ...AutoformatKit,
-  ...BlockMenuKit,
-  ...DndKit,
-  ...EmojiKit,
-  ...ExitBreakKit,
-  TrailingBlockPlugin,
+    // Editing
+    ...SlashKit,
+    ...AutoformatKit,
+    ...BlockMenuKit,
+    ...EmojiKit,
+    ...ExitBreakKit,
+    TrailingBlockPlugin,
 
-  // Parsers
-  ...DocxKit,
-  ...MarkdownKit,
+    // Parsers
+    ...DocxKit,
+    ...MarkdownKit,
 
-  // UI
-  ...BlockPlaceholderKit,
-  ...FixedToolbarKit,
-  ...FloatingToolbarKit,
-];
+    // UI
+    ...BlockPlaceholderKit,
+    ...FixedToolbarKit(isStudentSite),
+    ...FloatingToolbarKit(isStudentSite),
+] as const;
+
+const extraPlugins = [
+    ButtonPlugin,
+    ...DndKit,
+] as const;
+
+export const EditorKit = (isStudentSite?: boolean) =>
+    isStudentSite ? [...basePlugins(isStudentSite)] : [...basePlugins(isStudentSite), ...extraPlugins];
 
 export type MyEditor = TPlateEditor<
-  Value,
-  ReturnType<typeof EditorKit>[number]
+    Value,
+    ReturnType<typeof EditorKit>[number]
 >;
 
 export const useEditor = () => useEditorRef<MyEditor>();

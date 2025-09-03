@@ -63,7 +63,6 @@ export const PlaceholderElement = withHOC(
     const { api } = useEditorPlugin(PlaceholderPlugin);
 
     const readOnly = useReadOnly();
-    console.log(readOnly);
 
     const { isUploading, progress, uploadedFile, uploadFile, uploadingFile } =
       useUploadFile();

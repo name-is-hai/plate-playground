@@ -81,7 +81,7 @@ export function EmojiPopover({
   setIsOpen: (open: boolean) => void;
 }) {
   return (
-    <Popover.Root open={isOpen} onOpenChange={setIsOpen}>
+    <Popover.Root modal open={isOpen} onOpenChange={setIsOpen}>
       <Popover.Trigger asChild>{control}</Popover.Trigger>
 
       <Popover.Portal>

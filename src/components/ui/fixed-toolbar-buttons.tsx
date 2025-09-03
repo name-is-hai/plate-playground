@@ -3,15 +3,16 @@
 import * as React from 'react';
 
 import {
-  ArrowUpToLineIcon,
-  BaselineIcon,
-  BoldIcon,
-  Code2Icon,
-  HighlighterIcon,
-  ItalicIcon,
-  PaintBucketIcon,
-  StrikethroughIcon,
-  UnderlineIcon,
+    // ArrowUpToLineIcon,
+    BaselineIcon,
+    BoldIcon,
+    Code2Icon,
+    HighlighterIcon,
+    ItalicIcon,
+    MoreHorizontalIcon,
+    PaintBucketIcon,
+    StrikethroughIcon,
+    UnderlineIcon,
 } from 'lucide-react';
 import { KEYS } from 'platejs';
 import { useEditorReadOnly } from 'platejs/react';
@@ -19,22 +20,22 @@ import { useEditorReadOnly } from 'platejs/react';
 import { AlignToolbarButton } from './align-toolbar-button';
 import { CommentToolbarButton } from './comment-toolbar-button';
 import { EmojiToolbarButton } from './emoji-toolbar-button';
-import { ExportToolbarButton } from './export-toolbar-button';
+// import { ExportToolbarButton } from './export-toolbar-button';
 import { FontColorToolbarButton } from './font-color-toolbar-button';
 import { FontSizeToolbarButton } from './font-size-toolbar-button';
-import { RedoToolbarButton, UndoToolbarButton } from './history-toolbar-button';
-import { ImportToolbarButton } from './import-toolbar-button';
+// import { RedoToolbarButton, UndoToolbarButton } from './history-toolbar-button';
+// import { ImportToolbarButton } from './import-toolbar-button';
 import {
-  IndentToolbarButton,
-  OutdentToolbarButton,
+    IndentToolbarButton,
+    OutdentToolbarButton,
 } from './indent-toolbar-button';
 import { InsertToolbarButton } from './insert-toolbar-button';
 import { LineHeightToolbarButton } from './line-height-toolbar-button';
 import { LinkToolbarButton } from './link-toolbar-button';
 import {
-  BulletedListToolbarButton,
-  NumberedListToolbarButton,
-  TodoListToolbarButton,
+    BulletedListToolbarButton,
+    NumberedListToolbarButton,
+    TodoListToolbarButton,
 } from './list-toolbar-button';
 import { MarkToolbarButton } from './mark-toolbar-button';
 import { MediaToolbarButton } from './media-toolbar-button';
@@ -44,118 +45,176 @@ import { TableToolbarButton } from './table-toolbar-button';
 import { ToggleToolbarButton } from './toggle-toolbar-button';
 import { ToolbarGroup } from './toolbar';
 import { TurnIntoToolbarButton } from './turn-into-toolbar-button';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './dropdown-menu';
+import { Button } from './button';
 
-export function FixedToolbarButtons() {
-  const readOnly = useEditorReadOnly();
+interface ToolbarGroupDef {
+    id: string;
+    items: ToolbarItem[];
+}
 
-  return (
-    <div className="flex w-full">
-      {!readOnly && (
-        <>
-          <ToolbarGroup>
-            <UndoToolbarButton />
-            <RedoToolbarButton />
-          </ToolbarGroup>
+interface ToolbarItem {
+    id: string;
+    element: React.ReactNode;
+}
 
-          <ToolbarGroup>
-            <ExportToolbarButton>
-              <ArrowUpToLineIcon />
-            </ExportToolbarButton>
+// define groups
+function getToolbarGroups(isStudentSite?: boolean): ToolbarGroupDef[] {
+    return [
+        {
+            id: 'insert',
+            items: [
+                { id: 'insert', element: <InsertToolbarButton /> },
+                { id: 'turninto', element: <TurnIntoToolbarButton /> },
+                { id: 'fontsize', element: <FontSizeToolbarButton /> },
+            ],
+        },
+        {
+            id: 'marks',
+            items: [
+                { id: 'bold', element: <MarkToolbarButton nodeType={KEYS.bold}><BoldIcon /></MarkToolbarButton> },
+                { id: 'italic', element: <MarkToolbarButton nodeType={KEYS.italic}><ItalicIcon /></MarkToolbarButton> },
+                { id: 'underline', element: <MarkToolbarButton nodeType={KEYS.underline}><UnderlineIcon /></MarkToolbarButton> },
+                { id: 'strike', element: <MarkToolbarButton nodeType={KEYS.strikethrough}><StrikethroughIcon /></MarkToolbarButton> },
+                { id: 'code', element: <MarkToolbarButton nodeType={KEYS.code}><Code2Icon /></MarkToolbarButton> },
+                { id: 'color', element: <FontColorToolbarButton nodeType={KEYS.color}><BaselineIcon /></FontColorToolbarButton> },
+                { id: 'bgcolor', element: <FontColorToolbarButton nodeType={KEYS.backgroundColor}><PaintBucketIcon /></FontColorToolbarButton> },
+            ],
+        },
+        {
+            id: 'lists',
+            items: [
+                { id: 'align', element: <AlignToolbarButton /> },
+                { id: 'numlist', element: <NumberedListToolbarButton /> },
+                { id: 'bullist', element: <BulletedListToolbarButton /> },
+                { id: 'todolist', element: <TodoListToolbarButton /> },
+                { id: 'toggle', element: <ToggleToolbarButton /> },
+            ],
+        },
+        {
+            id: 'insert2',
+            items: [
+                { id: 'link', element: <LinkToolbarButton /> },
+                { id: 'table', element: <TableToolbarButton /> },
+                { id: 'emoji', element: <EmojiToolbarButton /> },
+            ],
+        },
+        {
+            id: 'media',
+            items: [
+                { id: 'img', element: <MediaToolbarButton nodeType={KEYS.img} /> },
+                { id: 'video', element: <MediaToolbarButton nodeType={KEYS.video} /> },
+                { id: 'audio', element: <MediaToolbarButton nodeType={KEYS.audio} /> },
+                { id: 'file', element: <MediaToolbarButton nodeType={KEYS.file} /> },
+            ],
+        },
+        {
+            id: 'indent',
+            items: [
+                { id: 'lineheight', element: <LineHeightToolbarButton /> },
+                { id: 'outdent', element: <OutdentToolbarButton /> },
+                { id: 'indent', element: <IndentToolbarButton /> },
+            ],
+        },
+        {
+            id: 'more',
+            items: [
+                { id: 'more', element: <MoreToolbarButton /> },
+            ],
+        },
+        ...(isStudentSite
+            ? []
+            : [
+                {
+                    id: 'extra',
+                    items: [
+                        { id: 'highlight', element: <MarkToolbarButton nodeType={KEYS.highlight}><HighlighterIcon /></MarkToolbarButton> },
+                        { id: 'comment', element: <CommentToolbarButton /> },
+                        { id: 'mode', element: <ModeToolbarButton /> },
+                    ],
+                },
+            ]),
+    ];
+}
 
-            <ImportToolbarButton />
-          </ToolbarGroup>
 
-          <ToolbarGroup>
-            <InsertToolbarButton />
-            <TurnIntoToolbarButton />
-            <FontSizeToolbarButton />
-          </ToolbarGroup>
+export function FixedToolbarButtons({ isStudentSite }: { isStudentSite?: boolean }) {
+    const readOnly = useEditorReadOnly();
+    const [visibleGroups, setVisibleGroups] = React.useState<ToolbarGroupDef[]>([]);
+    const [hiddenGroups, setHiddenGroups] = React.useState<ToolbarGroupDef[]>([]);
+    const toolbarRef = React.useRef<HTMLDivElement>(null);
+    const measureRef = React.useRef<HTMLDivElement>(null);
 
-          <ToolbarGroup>
-            <MarkToolbarButton nodeType={KEYS.bold} tooltip="Bold (⌘+B)">
-              <BoldIcon />
-            </MarkToolbarButton>
+    const groups = React.useMemo(() => getToolbarGroups(isStudentSite), [isStudentSite]);
 
-            <MarkToolbarButton nodeType={KEYS.italic} tooltip="Italic (⌘+I)">
-              <ItalicIcon />
-            </MarkToolbarButton>
+    const calculate = React.useCallback(() => {
+        if (!toolbarRef.current || !measureRef.current) return;
+        const availableWidth = toolbarRef.current.offsetWidth - 80;
 
-            <MarkToolbarButton
-              nodeType={KEYS.underline}
-              tooltip="Underline (⌘+U)"
-            >
-              <UnderlineIcon />
-            </MarkToolbarButton>
+        let total = 0;
+        let visibleCount = 0;
+        const els = measureRef.current.children;
 
-            <MarkToolbarButton
-              nodeType={KEYS.strikethrough}
-              tooltip="Strikethrough (⌘+⇧+M)"
-            >
-              <StrikethroughIcon />
-            </MarkToolbarButton>
+        for (let i = 0; i < els.length; i++) {
+            const w = (els[i] as HTMLElement).offsetWidth + 4;
+            if (total + w <= availableWidth) {
+                total += w;
+                visibleCount++;
+            } else {
+                break;
+            }
+        }
 
-            <MarkToolbarButton nodeType={KEYS.code} tooltip="Code (⌘+E)">
-              <Code2Icon />
-            </MarkToolbarButton>
+        setVisibleGroups(groups.slice(0, visibleCount));
+        setHiddenGroups(groups.slice(visibleCount));
+    }, [groups]);
 
-            <FontColorToolbarButton nodeType={KEYS.color} tooltip="Text color">
-              <BaselineIcon />
-            </FontColorToolbarButton>
+    React.useEffect(() => {
+        calculate();
+        window.addEventListener('resize', calculate);
+        return () => window.removeEventListener('resize', calculate);
+    }, [calculate]);
 
-            <FontColorToolbarButton
-              nodeType={KEYS.backgroundColor}
-              tooltip="Background color"
-            >
-              <PaintBucketIcon />
-            </FontColorToolbarButton>
-          </ToolbarGroup>
+    if (readOnly) return null;
 
-          <ToolbarGroup>
-            <AlignToolbarButton />
+    return (
+        <div className="flex w-full items-center overflow-hidden" ref={toolbarRef}>
+            <div ref={measureRef} className="fixed opacity-0 pointer-events-none flex -top-96">
+                {groups.map((group) => (
+                    <ToolbarGroup key={group.id}>
+                        {group.items.map((item) => (
+                            <div key={item.id}>{item.element}</div>
+                        ))}
+                    </ToolbarGroup>
+                ))}
+            </div>
 
-            <NumberedListToolbarButton />
-            <BulletedListToolbarButton />
-            <TodoListToolbarButton />
-            <ToggleToolbarButton />
-          </ToolbarGroup>
+            {visibleGroups.map((group) => (
+                <ToolbarGroup key={group.id}>
+                    {group.items.map((item) => (
+                        <React.Fragment key={item.id}>{item.element}</React.Fragment>
+                    ))}
+                </ToolbarGroup>
+            ))}
 
-          <ToolbarGroup>
-            <LinkToolbarButton />
-            <TableToolbarButton />
-            <EmojiToolbarButton />
-          </ToolbarGroup>
-
-          <ToolbarGroup>
-            <MediaToolbarButton nodeType={KEYS.img} />
-            <MediaToolbarButton nodeType={KEYS.video} />
-            <MediaToolbarButton nodeType={KEYS.audio} />
-            <MediaToolbarButton nodeType={KEYS.file} />
-          </ToolbarGroup>
-
-          <ToolbarGroup>
-            <LineHeightToolbarButton />
-            <OutdentToolbarButton />
-            <IndentToolbarButton />
-          </ToolbarGroup>
-
-          <ToolbarGroup>
-            <MoreToolbarButton />
-          </ToolbarGroup>
-        </>
-      )}
-
-      <div className="grow" />
-
-      <ToolbarGroup>
-        <MarkToolbarButton nodeType={KEYS.highlight} tooltip="Highlight">
-          <HighlighterIcon />
-        </MarkToolbarButton>
-        <CommentToolbarButton />
-      </ToolbarGroup>
-
-      <ToolbarGroup>
-        <ModeToolbarButton />
-      </ToolbarGroup>
-    </div>
-  );
+            {hiddenGroups.length > 0 && (
+                <DropdownMenu modal>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" className="px-2">
+                            <MoreHorizontalIcon />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className="flex flex-col gap-1 p-2">
+                        {hiddenGroups.map((group) => (
+                            <ToolbarGroup key={group.id} showSeparator={false}>
+                                {group.items.map((item) => (
+                                    <React.Fragment key={item.id}>{item.element}</React.Fragment>
+                                ))}
+                            </ToolbarGroup>
+                        ))}
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            )}
+        </div>
+    );
 }

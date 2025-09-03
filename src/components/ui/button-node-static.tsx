@@ -18,7 +18,6 @@ export function ButtonElementStatic(props: SlateElementProps<MyButtonElement>) {
     textColor,
     backgroundColor,
   } = element;
-  console.log(element);
 
   return (
     <SlateElement
