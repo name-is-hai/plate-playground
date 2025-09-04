@@ -35,7 +35,8 @@ import { TocKit } from '@/components/editor/plugins/toc-kit';
 import { ToggleKit } from '@/components/editor/plugins/toggle-kit';
 import { ButtonPlugin } from './plugins/button-kit';
 
-const basePlugins = (isStudentSite?: boolean) => [
+const basePlugins = (isStudentSite?: boolean) =>
+  [
     // Elements
     ...BasicBlocksKit,
     ...CodeBlockKit,
@@ -79,19 +80,18 @@ const basePlugins = (isStudentSite?: boolean) => [
     ...BlockPlaceholderKit,
     ...FixedToolbarKit(isStudentSite),
     ...FloatingToolbarKit(isStudentSite),
-] as const;
+  ] as const;
 
-const extraPlugins = [
-    ButtonPlugin,
-    ...DndKit,
-] as const;
+const extraPlugins = [ButtonPlugin, ...DndKit] as const;
 
 export const EditorKit = (isStudentSite?: boolean) =>
-    isStudentSite ? [...basePlugins(isStudentSite)] : [...basePlugins(isStudentSite), ...extraPlugins];
+  isStudentSite
+    ? [...basePlugins(isStudentSite)]
+    : [...basePlugins(isStudentSite), ...extraPlugins];
 
 export type MyEditor = TPlateEditor<
-    Value,
-    ReturnType<typeof EditorKit>[number]
+  Value,
+  ReturnType<typeof EditorKit>[number]
 >;
 
 export const useEditor = () => useEditorRef<MyEditor>();

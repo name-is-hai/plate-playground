@@ -80,3 +80,65 @@ export function MoreToolbarButton(props: DropdownMenuProps) {
     </DropdownMenu>
   );
 }
+
+export const KeyboardInputButton = (
+  props: React.ComponentProps<typeof ToolbarButton>
+) => {
+  const editor = useEditorRef();
+
+  return (
+    <ToolbarButton
+      {...props}
+      onClick={() => {
+        editor.tf.toggleMark(KEYS.kbd);
+        editor.tf.collapse({ edge: 'end' });
+        editor.tf.focus();
+      }}
+      tooltip="Keyboard input"
+    >
+      <KeyboardIcon />
+    </ToolbarButton>
+  );
+};
+
+export const SuperscriptButton = (
+  props: React.ComponentProps<typeof ToolbarButton>
+) => {
+  const editor = useEditorRef();
+
+  return (
+    <ToolbarButton
+      {...props}
+      onClick={() => {
+        editor.tf.toggleMark(KEYS.sup, {
+          remove: KEYS.sub,
+        });
+        editor.tf.focus();
+      }}
+      tooltip="Superscript"
+    >
+      <SuperscriptIcon />
+    </ToolbarButton>
+  );
+};
+
+export const SubscriptButton = (
+  props: React.ComponentProps<typeof ToolbarButton>
+) => {
+  const editor = useEditorRef();
+
+  return (
+    <ToolbarButton
+      {...props}
+      onClick={() => {
+        editor.tf.toggleMark(KEYS.sub, {
+          remove: KEYS.sup,
+        });
+        editor.tf.focus();
+      }}
+      tooltip="Subscript"
+    >
+      <SubscriptIcon />
+    </ToolbarButton>
+  );
+};

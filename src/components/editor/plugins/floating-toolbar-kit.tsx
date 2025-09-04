@@ -6,14 +6,14 @@ import { FloatingToolbar } from '@/components/ui/floating-toolbar';
 import { FloatingToolbarButtons } from '@/components/ui/floating-toolbar-buttons';
 
 export const FloatingToolbarKit = (isStudentSite?: boolean) => [
-    createPlatePlugin({
-        key: 'floating-toolbar',
-        render: {
-            afterEditable: () => (
-                <FloatingToolbar>
-                    <FloatingToolbarButtons isStudentSite={isStudentSite} />
-                </FloatingToolbar>
-            ),
-        },
-    }),
+  createPlatePlugin({
+    key: 'floating-toolbar',
+    render: {
+      afterEditable: () => (
+        <FloatingToolbar>
+          <FloatingToolbarButtons isStudentSite={isStudentSite} />
+        </FloatingToolbar>
+      ),
+    },
+  }),
 ];
