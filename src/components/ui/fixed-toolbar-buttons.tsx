@@ -3,7 +3,7 @@
 import * as React from 'react';
 
 import {
-  // ArrowUpToLineIcon,
+  ArrowUpToLineIcon,
   BaselineIcon,
   BoldIcon,
   Code2Icon,
@@ -20,11 +20,11 @@ import { useEditorReadOnly } from 'platejs/react';
 import { AlignToolbarButton } from './align-toolbar-button';
 import { CommentToolbarButton } from './comment-toolbar-button';
 import { EmojiToolbarButton } from './emoji-toolbar-button';
-// import { ExportToolbarButton } from './export-toolbar-button';
+import { ExportToolbarButton } from './export-toolbar-button';
 import { FontColorToolbarButton } from './font-color-toolbar-button';
 import { FontSizeToolbarButton } from './font-size-toolbar-button';
 // import { RedoToolbarButton, UndoToolbarButton } from './history-toolbar-button';
-// import { ImportToolbarButton } from './import-toolbar-button';
+import { ImportToolbarButton } from './import-toolbar-button';
 import {
   IndentToolbarButton,
   OutdentToolbarButton,
@@ -187,15 +187,20 @@ function getToolbarGroups(isStudentSite?: boolean): ToolbarGroupDef[] {
     //         { id: 'redo', element: <RedoToolbarButton /> },
     //     ],
     // },
-    // {
-    //     id: 'export',
-    //     items: [
-    //         { id: 'import', element: <ImportToolbarButton /> },
-    //         {
-    //             id: 'export', element: <ExportToolbarButton><ArrowUpToLineIcon /></ExportToolbarButton>
-    //         },
-    //     ],
-    // },
+    {
+      id: 'export',
+      items: [
+        { id: 'import', element: <ImportToolbarButton /> },
+        {
+          id: 'export',
+          element: (
+            <ExportToolbarButton>
+              <ArrowUpToLineIcon />
+            </ExportToolbarButton>
+          ),
+        },
+      ],
+    },
     ...(isStudentSite
       ? []
       : [

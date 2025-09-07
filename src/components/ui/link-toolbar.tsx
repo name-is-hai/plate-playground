@@ -117,6 +117,18 @@ export function LinkFloatingToolbar({
     '_self' | '_blank' | '_parent' | '_top' | (string & {})
   >(attributes.target!);
 
+  React.useEffect(() => {
+    if (editState.isEditing) {
+      setUrl(attributes.href ?? '');
+      setText(attributes.text ?? '');
+      setTarget(attributes.target ?? '_self');
+    } else if (insertState.isOpen) {
+      setUrl('');
+      setText('');
+      setTarget('_self');
+    }
+  }, [attributes.href, editState.isEditing, insertState.isOpen]);
+
   const isDisabled =
     !validateUrl(editState.editor, url ?? '') ||
     (url === attributes.href &&
