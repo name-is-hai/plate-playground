@@ -19,7 +19,7 @@ import {
 } from '@platejs/link/react';
 import { cva } from 'class-variance-authority';
 import { ExternalLink, Link, Text, Unlink } from 'lucide-react';
-import { KEYS, Editor } from 'platejs';
+import { KEYS } from 'platejs';
 import {
     useEditorRef,
     useEditorSelection,
