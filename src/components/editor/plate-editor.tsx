@@ -1,10 +1,10 @@
 'use client';
 
-import * as React from 'react';
-
 import { Plate, usePlateEditor } from 'platejs/react';
+
 import { EditorKit } from '@/components/editor/editor-kit';
 import { Editor, EditorContainer } from '@/components/ui/editor';
+import { SuggestionPlugin } from '@platejs/suggestion/react';
 import type { Value } from 'platejs';
 
 interface EditorProp {
@@ -14,26 +14,28 @@ interface EditorProp {
   className?: string;
   isTicket?: boolean;
   isStudentSite?: boolean;
+  isSuggest?: boolean;
 }
 
-export function PlateEditor({ isStudentSite, onChange }: EditorProp) {
+export function PlateEditor({ isStudentSite, onChange, className, isTicket, content = value, editable = true, isSuggest = false }: EditorProp) {
   const editor = usePlateEditor({
     plugins: EditorKit(isStudentSite),
-    value,
+    value: content,
+
   });
-  // const textUse = useEditorString()
+  editor.setOption(SuggestionPlugin, 'isSuggesting', isSuggest);
+
   return (
     <Plate
       editor={editor}
-      onValueChange={(editor) => {
-        onChange?.(editor.value);
-        // const newValue = editor.value;
-        // const newPlainText = getTextContent(newValue);
-        console.log(editor.value);
+      readOnly={!editable}
+
+      onChange={({ value }) => {
+        onChange?.(value);
       }}
     >
-      <EditorContainer>
-        <Editor />
+      <EditorContainer className={className}>
+        <Editor variant="none" />
       </EditorContainer>
     </Plate>
   );
